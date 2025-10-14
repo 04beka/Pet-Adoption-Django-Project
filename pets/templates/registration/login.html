@@ -1,0 +1,9 @@
+{% extends "pets/base.html" %}
+{% block content %}
+<h1>შესვლა</h1>
+<form method="post" class="form">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn">შესვლა</button>
+</form>
+{% endblock %}

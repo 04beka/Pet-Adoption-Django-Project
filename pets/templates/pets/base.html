@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ka">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8">
+  <title>Adoption</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/static/css/style.css" rel="stylesheet">
 </head>
 <body>
-
+<header class="site-header">
+  <a class="brand" href="{% url 'pets:pet_list' %}">Adoption</a>
+  <nav>
+    <a href="{% url 'pets:pet_list' %}">სახლი</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'pets:pet_create' %}">დაამატე პეტი</a>
+      <a href="{% url 'pets:profile_detail' user.username %}">პროფილი</a>
+      <a href="{% url 'logout' %}">გამოსვლა</a>
+    {% else %}
+      <a href="{% url 'login' %}">შესვლა</a>
+    {% endif %}
+  </nav>
+</header>
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer">© {{ now|date:"Y" }} Adoption</footer>
 </body>
 </html>
