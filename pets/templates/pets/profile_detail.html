@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "pets/base.html" %}
+{% block content %}
+<section class="profile">
+  <h1>პროფილი: @{{ profile.user.username }}</h1>
+  <p><strong>ქალაქი:</strong> {{ profile.city|default:"-" }}</p>
+  <p><strong>ტელეფონი:</strong> {{ profile.phone|default:"-" }}</p>
+  <p>{{ profile.bio|default:"" }}</p>
 
-</body>
-</html>
+  {% if user.is_authenticated and user == profile.user %}
+    <p><a class="btn" href="{% url 'pets:profile_edit' %}">პროფილის რედაქტირება</a></p>
+  {% endif %}
+
+  <h2>პეტები</h2>
+  <ul class="pet-grid">
+    {% for pet in profile.user.pets.all %}
+      <li class="pet-card">
+        <a href="{% url 'pets:pet_detail' pet.pk %}">
+          {% if pet.photo %}<img src="{{ pet.photo.url }}" alt="{{ pet.name }}">{% endif %}
+          <h3>{{ pet.name }}</h3>
+          <p class="muted">{{ pet.get_species_display }} • {{ pet.age }} წლ.</p>
+        </a>
+      </li>
+    {% empty %}
+      <li>ამ მომხმარებელს ჯერ არ დაუმატებია პეტი.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

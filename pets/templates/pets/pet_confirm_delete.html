@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends "pets/base.html" %}
+{% block content %}
+<h1>პეტის წაშლა</h1>
+<p>დარწმუნებული ხარ, რომ წავშალო “{{ object.name }}”?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn danger">დიახ, წაშალე</button>
+  <a class="btn" href="{% url 'pets:pet_detail' object.pk %}">გაუქმება</a>
+</form>
+{% endblock %}

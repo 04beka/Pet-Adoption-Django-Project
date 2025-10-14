@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "pets/base.html" %}
+{% block content %}
+<h1>პეტების სია</h1>
 
-</body>
-</html>
+<form method="get" class="search-form">
+  {{ search_form.q }}
+  {{ search_form.species }}
+  {{ search_form.adopted }}
+  <button type="submit">ძებნა</button>
+</form>
+
+<ul class="pet-grid">
+  {% for pet in pets %}
+    <li class="pet-card">
+      <a href="{% url 'pets:pet_detail' pet.pk %}">
+        {% if pet.photo %}
+          <img src="{{ pet.photo.url }}" alt="{{ pet.name }}">
+        {% endif %}
+        <h3>{{ pet.name }}</h3>
+        <p>{{ pet.get_species_display }}{% if pet.breed %} • {{ pet.breed }}{% endif %}</p>
+        <p class="muted">{{ pet.city }} • {{ pet.age }} წლ.</p>
+      </a>
+    </li>
+  {% empty %}
+    <li>შედეგი არ მოიძებნა.</li>
+  {% endfor %}
+</ul>
+
+{% if is_paginated %}
+<div class="pagination">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode|cut:'page='|cut:page_obj.number }}">წინა</a>
+  {% endif %}
+  <span>გვ. {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}&{{ request.GET.urlencode|cut:'page='|cut:page_obj.number }}">შემდეგი</a>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}
