@@ -7,8 +7,15 @@
   <p>{{ profile.bio|default:"" }}</p>
 
   {% if user.is_authenticated and user == profile.user %}
-    <p><a class="btn" href="{% url 'pets:profile_edit' %}">პროფილის რედაქტირება</a></p>
-  {% endif %}
+  <div class="profile-actions" style="display: flex; gap: 10px; align-items: center;">
+    <a class="btn" href="{% url 'pets:profile_edit' %}">პროფილის რედაქტირება</a>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">გასვლა</button> {# შეგიძლიათ კლასი შეცვალოთ თქვენი დიზაინის მიხედვით #}
+    </form>
+  </div>
+{% endif %}
 
   <h2>პეტები</h2>
   <ul class="pet-grid">

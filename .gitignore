@@ -1,0 +1,27 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+*.log
+.env
+.env.*
+/media/
+/staticfiles/
+
+# IDE
+.vscode/
+.idea/
+
+# Byte-compiled / cache
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+
+# Django collected statics
+staticfiles/
+
+# Docker
+*.pid

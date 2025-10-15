@@ -15,7 +15,7 @@
 
   <div class="muted">დამატა: <a href="{% url 'pets:profile_detail' pet.owner.username %}">@{{ pet.owner.username }}</a>, {{ pet.created_at|date:"Y-m-d H:i" }}</div>
 
-  {% if user.is_authenticated and (user == pet.owner or user.is_staff) %}
+  {% if user.is_authenticated and user == pet.owner or user.is_staff %}
     <div class="actions">
       <a class="btn" href="{% url 'pets:pet_update' pet.pk %}">რედაქტირება</a>
       <a class="btn danger" href="{% url 'pets:pet_delete' pet.pk %}">წაშლა</a>
