@@ -1,4 +1,5 @@
-from django.apps import App, AppConfig
+from django.apps import AppConfig
+
 
 class PetsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
