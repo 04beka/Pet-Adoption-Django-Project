@@ -8,7 +8,6 @@
 </head>
 <body>
 <header class="site-header">
-  <a class="brand" href="{% url 'pets:pet_list' %}">Adoption</a>
   <nav>
     <a href="{% url 'pets:pet_list' %}">მთავარი</a>
     {% if user.is_authenticated %}
